@@ -22,11 +22,8 @@ export const MainProfile: FC = () => {
         <div className={style.profile_content}>
             <p>{data?.roles?.map(role => roleNames[role] || role).join(", ")}</p>
             <h1>{data?.name}</h1>
-            <div className={style.badge_wrapper}>
-                <div className={style.profile_badge} ></div>
-                <div className={style.profile_badge} ></div>
-            </div>
-            <h2>Зарегался: {formattedDate}</h2>
+
+            <h2>Дата регистрации:<br></br> {formattedDate}</h2>
             <button>Установить аватарку</button>
         </div>
     </section>)

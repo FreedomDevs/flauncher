@@ -7,6 +7,9 @@
 
 .main_profile{
     display: flex;
+    background: #C86BF7;
+    border-radius: 15px;
+    padding: 15px;
 }
 
 .profile_content {
@@ -38,7 +41,7 @@
 }
 
 .profile_content button {
-    border-radius: 20px;
+    border-radius: 15px;
     padding: 10px 20px;
     width: 170px;
     height: 35px;
