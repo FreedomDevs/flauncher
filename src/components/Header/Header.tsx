@@ -4,11 +4,15 @@ import { useAuth } from "../../providers/AuthProvider.tsx";
 import { Link } from "react-router-dom";
 import { pageConfig } from "../../configs/page.config.ts";
 import { open } from "@tauri-apps/api/shell";
+import {useProfile} from "../../hooks/useProfile.ts";
+import {apiConfig} from "../../configs/api.config.ts";
 
+const placeholderImage: string = "https://i.pinimg.com/736x/7e/a1/90/7ea190a9e0f8caa40c88fdb3868ff15a.jpg";
 export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<SVGSVGElement>(null);
+    const { data } = useProfile()
 
     const { logout } = useAuth()
 
@@ -37,6 +41,10 @@ export const Header = () => {
         await open("https://t.me/fdtplace")
     }
 
+    const avatar = data && data.avatar
+        ? apiConfig.baseURL + apiConfig.images + data.avatar
+        : placeholderImage;
+
     return <>
         <header className={style.header}>
             <div className={style.navigation}>
@@ -56,7 +64,7 @@ export const Header = () => {
                     </svg>
                 </a>
                 <div className={style.line}></div>
-                <img src="https://i.pinimg.com/736x/42/34/11/423411bccfe875a71f1b2ecde5fcbee5.jpg" alt=""/>
+                <img src={avatar} alt=""/>
                 <svg ref={buttonRef} onClick={toggleMenu} style={{marginLeft: "20px", marginRight: "30px", cursor: "pointer"}} width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.38889 20C0.995375 20 0.665745 19.84 0.400005 19.52C0.134264 19.2 0.000930715 18.8044 4.78926e-06 18.3333C-0.000921136 17.8622 0.132412 17.4666 0.400005 17.1466C0.667597 16.8266 0.997227 16.6666 1.38889 16.6666H23.6111C24.0046 16.6666 24.3347 16.8266 24.6014 17.1466C24.868 17.4666 25.0009 17.8622 25 18.3333C24.9991 18.8044 24.8657 19.2005 24.6 19.5216C24.3343 19.8428 24.0046 20.0022 23.6111 20H1.38889ZM1.38889 11.6667C0.995375 11.6667 0.665745 11.5067 0.400005 11.1867C0.134264 10.8667 0.000930715 10.4711 4.78926e-06 9.99999C-0.000921136 9.52888 0.132412 9.13332 0.400005 8.81332C0.667597 8.49332 0.997227 8.33332 1.38889 8.33332H23.6111C24.0046 8.33332 24.3347 8.49332 24.6014 8.81332C24.868 9.13332 25.0009 9.52888 25 9.99999C24.9991 10.4711 24.8657 10.8672 24.6 11.1883C24.3343 11.5094 24.0046 11.6689 23.6111 11.6667H1.38889ZM1.38889 3.33333C0.995375 3.33333 0.665745 3.17333 0.400005 2.85333C0.134264 2.53333 0.000930715 2.13778 4.78926e-06 1.66666C-0.000921136 1.19555 0.132412 0.799999 0.400005 0.48C0.667597 0.16 0.997227 0 1.38889 0H23.6111C24.0046 0 24.3347 0.16 24.6014 0.48C24.868 0.799999 25.0009 1.19555 25 1.66666C24.9991 2.13778 24.8657 2.53389 24.6 2.855C24.3343 3.17611 24.0046 3.33555 23.6111 3.33333H1.38889Z" fill="#FAFCFF" />
                 </svg>

@@ -1,6 +1,7 @@
 import {FC} from "react";
 import style from "./style.module.css";
 import {useProfile} from "../../../../hooks/useProfile.ts";
+import {apiConfig} from "../../../../configs/api.config.ts";
 
 const placeholderImage: string = "https://i.pinimg.com/736x/7e/a1/90/7ea190a9e0f8caa40c88fdb3868ff15a.jpg";
 export const MainProfile: FC = () => {
@@ -17,8 +18,16 @@ export const MainProfile: FC = () => {
     const date = new Date(data?.createdAt);
     const formattedDate = `${String(date.getUTCDate()).padStart(2, "0")}.${String(date.getUTCMonth() + 1).padStart(2, "0")}.${date.getUTCFullYear()}`;
 
+    const avatar = data && data.avatar
+        ? apiConfig.baseURL + apiConfig.images + data.avatar
+        : placeholderImage;
+
     return ( <section className={style.main_profile}>
-        <img src={placeholderImage} alt=""/>
+        <img src={avatar} alt="" onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.onerror = null;
+            target.src = placeholderImage;
+        }}/>
         <div className={style.profile_content}>
             <p>{data?.roles?.map(role => roleNames[role] || role).join(", ")}</p>
             <h1>{data?.name}</h1>
