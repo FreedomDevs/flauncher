@@ -7,7 +7,8 @@ import { useForm } from "react-hook-form";
 import axiosInstance from "../../../../utils/axios.ts";
 import { isAxiosError } from "axios";
 import { useQueryClient } from "@tanstack/react-query";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
+import { profileService } from "../../../../services/profile.service.ts";
 
 const placeholderImage: string = "https://i.pinimg.com/736x/7e/a1/90/7ea190a9e0f8caa40c88fdb3868ff15a.jpg";
 
@@ -57,11 +58,7 @@ export const MainProfile: FC = () => {
             setIsUploading(true);
             setUploadError(null);
 
-            await axiosInstance.post("user/upload/avatar", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
+            await profileService.changeAvatar(formData);
 
             await queryClient.invalidateQueries({ queryKey: ['profile'] });
 

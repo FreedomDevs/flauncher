@@ -1,5 +1,5 @@
-import {apiConfig} from "../configs/api.config.ts";
-import {IProfile} from "../types/profile.type.ts";
+import { apiConfig } from "../configs/api.config.ts";
+import { IProfile } from "../types/profile.type.ts";
 import axios from "../utils/axios.ts";
 
 class ProfileService {
@@ -9,7 +9,10 @@ class ProfileService {
         return axios.get<IProfile>(`${this.url}/get/me`);
     }
 
-    changeAvatar() {
+    changeAvatar(formData: FormData) {
+        return axios.post<IProfile>("user/upload/avatar", formData, {
+            headers: { "Content-Type": "multipart/form-data", },
+        });
     }
 
     changeSkin() {
@@ -18,7 +21,7 @@ class ProfileService {
     changePassword() {
     }
 
-    changeCape()  {
+    changeCape() {
     }
 
 }
