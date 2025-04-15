@@ -4,7 +4,6 @@ import { useProfile } from "../../../../hooks/useProfile.ts";
 import { apiConfig } from "../../../../configs/api.config.ts";
 import Modal from "../../../Modal/Modal.tsx";
 import { useForm } from "react-hook-form";
-import axiosInstance from "../../../../utils/axios.ts";
 import { isAxiosError } from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
