@@ -4,10 +4,17 @@ import MinecraftSkinViewer from "../../SkinsLib/MinecraftSkinViewer.tsx";
 
  export const SkinSection: React.FC = () => {
      const [handType, setHandType] = useState(true);
-     // Slim и на оборот
 
      const onClick: () => void = ()=>  {
-        
+        if (handType) {
+            setHandType(false);
+            // TODO: сделать обработку на сервере
+            console.log(handType);
+        } else {
+            setHandType(true);
+            // TODO: сделать обработку на сервере
+            console.log(handType);
+        }
      }
 
     return (<section className={style.skin_wrapper}>
@@ -18,7 +25,7 @@ import MinecraftSkinViewer from "../../SkinsLib/MinecraftSkinViewer.tsx";
         </div>
         <div className={style.button_wrapper}>
             <button onClick={onClick} className={style.button}>{handType ? "Default" : "Slim"}</button>
-            <button className={style.button}>Загрузить скин</button>
+            <input type="file" className={style.button} placeholder="Загрузить скин"/>
             <button className={style.button}>Установить плащ</button>
         </div>
     </section>)
