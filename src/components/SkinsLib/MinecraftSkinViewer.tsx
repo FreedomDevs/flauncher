@@ -45,7 +45,7 @@ const MinecraftSkinViewer: React.FC<SkinViewerProps> = ({ skinURL, capeUrl }: Sk
     }, [skinURL]);
 
     return (
-        <div ref={viewerContainer} style={{ width: "250px", height: "450px" }}>
+        <div ref={viewerContainer} style={{ width: "250px", height: "400px" }}>
             <canvas ref={canvasRef} width={250} height={350} />
         </div>
     );
