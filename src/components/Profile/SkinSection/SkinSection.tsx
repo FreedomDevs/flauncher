@@ -1,9 +1,27 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import style from "./style.module.css"
 import MinecraftSkinViewer from "../../SkinsLib/MinecraftSkinViewer.tsx";
+import {skinsService} from "../../../services/skins.service.ts";
+import {useProfile} from "../../../hooks/useProfile.ts";
 
 export const SkinSection: React.FC = () => {
+    const { data } = useProfile();
     const [handType, setHandType] = useState(true);
+    const [skinUrl, setSkinUrl] = useState<string | null>(null);
+
+    useEffect(() => {
+        async function fetchSkin() {
+            try {
+                if (!data) return;
+                const skin = await skinsService.getSkinURL(data.name);
+                setSkinUrl(skin);
+            } catch (error) {
+                console.error("Failed to load skin:", error);
+            }
+        }
+
+        fetchSkin();
+    }, []);
 
     const onClick: () => void = () => {
         if (handType) {
@@ -28,7 +46,7 @@ export const SkinSection: React.FC = () => {
     return (<section className={style.skin_wrapper}>
         <div className={style.skin}>
             <MinecraftSkinViewer
-                skinURL={"Skins/Foks_f.png"}
+                skinURL={skinUrl}
             />
         </div>
         <div className={style.button_wrapper}>
