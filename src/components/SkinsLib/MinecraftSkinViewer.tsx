@@ -6,10 +6,11 @@ import * as THREE from "three";
 
 interface SkinViewerProps {
     skinURL: string;
+    skinType: boolean
     capeUrl?: string;
 }
 
-const MinecraftSkinViewer: React.FC<SkinViewerProps> = ({ skinURL, capeUrl }: SkinViewerProps) => {
+const MinecraftSkinViewer: React.FC<SkinViewerProps> = ({ skinURL, capeUrl, skinType }: SkinViewerProps) => {
     const viewerContainer = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -22,6 +23,7 @@ const MinecraftSkinViewer: React.FC<SkinViewerProps> = ({ skinURL, capeUrl }: Sk
             height: 450,
             skin: skinURL,
             cape: capeUrl,
+            model: skinType ? "default" : "slim"
         });
 
         const camera = skinViewer.camera as THREE.PerspectiveCamera;
